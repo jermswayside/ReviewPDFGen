@@ -49,21 +49,38 @@
 	  </div>
 		</div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-<script type="text/javascript" src="jspdf.min.js"></script>
 
-<script src='codepen.js'></script>
+
+<script type="text/javascript" src="jspdf.debug.js"></script>
+
 <script type="text/javascript">
-$(function () {
-	var url_string = "http://www.example.com/t.html?a=1&b=3&c=m2-m3-m4-m5"; //window.location.href
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function core() {
+	var url_string = window.location.href;
 	var url = new URL(url_string);
-	var c = url.searchParams.get("c");
-	console.log(c);
-	return;
-	var pdf = new jsPDF('p', 'pt', 'a4');
-	pdf.addHTML($('#fromHTMLtestdiv'), function() {
-		pdf.save('web.pdf');
-		//setTimeout(function(){ window.close(); }, 2000);
-	});
+	var accountsToMake = JSON.parse( url.searchParams.get("j") );
+	console.log(accountsToMake)
+	for (var i = 0; i < accountsToMake.length; i++) {
+		await sleep(1000);
+		$('#pdf-username').text(accountsToMake[i].username);
+		$('#pdf-school').text(accountsToMake[i].school);
+		$('#pdf-date').text(accountsToMake[i].date);
+		$('#pdf-password').text(accountsToMake[i].password);
+		var pdf = new jsPDF('p', 'pt', 'a4');
+		var schoolname = accountsToMake[i].school;
+		pdf.addHTML($('#fromHTMLtestdiv'), function() {
+			pdf.save(schoolname+'.pdf');
+			//setTimeout(function(){ window.close(); }, 2000);
+		});
+	}
+}
+
+$(function () {
+	core();
 });
 
 </script>
