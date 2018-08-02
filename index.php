@@ -37,7 +37,7 @@
 				<p style="margin-left:15px;margin-bottom:0;">Username: <span id="pdf-username"></span> </p>
 				<p style="margin-left:15px;">Case-sensitive password: <span id="pdf-password"></span></p></li>
 				<li><p>2. Once you\ve logged in, you will see both a Courses section and a FlexText Library on your Dashboard. The following programs are available for your review:</p>
-				<p style="margin-left:15px;"><i>EntreCulturas 1; EntreCulturas 2; EntreCulturas 3; Tejidos; Triángulo Aprobado</i></p></li>
+				<p style="margin-left:15px;"><i id="pdf-books"></i></p></li>
 				<li><p>3. Click "View Course" or "View FlexText" under each title to explore the content.</p></li></ul>
 				<p>Your digital review materials will be available until <span id="pdf-date"></span>. Please let us know if you have questions or need assistance during your review. If you need more time, please contact us.</p>
 				<p>Thank you for considering our language learning programs for adoption.</p>
@@ -70,6 +70,7 @@ async function core() {
 		$('#pdf-school').text(accountsToMake[i].school);
 		$('#pdf-date').text(accountsToMake[i].date);
 		$('#pdf-password').text(accountsToMake[i].password);
+		$('#pdf-books').text(accountsToMake[i].books);
 		var pdf = new jsPDF('p', 'pt', 'a4');
 		var schoolname = accountsToMake[i].school;
 		pdf.addHTML($('#fromHTMLtestdiv'), function() {
